@@ -53,9 +53,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             errors["base"] = "invalid_port"
         except AlreadyConfigured:
             return self.async_abort(reason="already_configured")
-        except Exception:  # pylint: disable=broad-except
-            _LOGGER.exception("Unexpected exception")
-            errors["base"] = "unknown"
+        except Exception as exception:  # pylint: disable=broad-except
+            _LOGGER.exception(exception)
+            errors["base"] = exception
 
         return self.async_show_form(step_id="user", errors=errors)
 
